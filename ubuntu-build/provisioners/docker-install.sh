@@ -20,3 +20,5 @@ sudo add-apt-repository \
    $(lsb_release -cs) \
    stable"
 
+sudo usermod -aG docker ${NEW_USER}
+
