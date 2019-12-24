@@ -4,7 +4,7 @@
     "iso_path": "18.04",
     "iso_checksum": "7d8e0055d663bffa27c1718685085626cb59346e7626ba3d3f476322271f573e",
     "iso_checksum_type": "sha256",
-    "ssh_name": "vagrant",
+    "ssh_user": "vagrant",
     "ssh_pass": "vagrant",
     "vm_name": "devBuild",
     "box_version": "1804.0.20180427",
@@ -29,7 +29,7 @@
       "iso_urls": [
         "http://cdimages.ubuntu.com/ubuntu/releases/18.04/release/ubuntu-18.04.3-server-amd64.iso"
       ],
-      "ssh_username": "{{user `ssh_name`}}",
+      "ssh_username": "{{user `ssh_user`}}",
       "ssh_password": "{{user `ssh_pass`}}",
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s",
@@ -57,10 +57,14 @@
         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
         "<bs><bs><bs>",
         "{{user `linux`}} ",
-        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `preseed`}} ",
-        "debian-installer=en_US auto=true locale=en_US kbd-chooser/method=us ",
-        "console-setup/ask_detect=false keyboard-configuration/layoutcode=us ",
-        "hostname={{user `host_name`}} ",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `preseed`}} <wait>",
+        "debian-installer=en_US auto=true locale=en_US kbd-chooser/method=us <wait>",
+        "console-setup/ask_detect=false keyboard-configuration/layoutcode=us <wait>",
+        "hostname={{user `host_name`}} <wait>",
+        "passwd/user-fullname={{user `ssh_user`}} <wait>",
+        "passwd/username={{user `ssh_user`}} <wait>",
+        "passwd/user-password={{user `ssh_pass`}} <wait>",
+        "passwd/user-password-again={{user `ssh_pass`}} <wait>",
         "initrd={{user `initrd`}} quiet --- <enter>"
       ]
     }

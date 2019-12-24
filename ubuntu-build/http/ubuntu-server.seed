@@ -203,6 +203,7 @@ d-i partman/confirm_nooverwrite boolean true
 #d-i partman-auto/disk string /dev/sda /dev/sdb
 
 # Next you need to specify the physical partitions that will be used. 
+# Next you need to specify the physical partitions that will be used.
 #d-i partman-auto/expert_recipe string \
 #      multiraid ::                                         \
 #              1000 5000 4000 raid                          \
@@ -276,11 +277,11 @@ d-i partman/confirm_nooverwrite boolean true
 #d-i passwd/root-password-crypted password [MD5 hash]
 
 # To create a normal user account.
-d-i passwd/user-fullname string Vagrant
-d-i passwd/username string vagrant
-# Normal user's password, either in clear text
-d-i passwd/user-password password vagrant
-d-i passwd/user-password-again password vagrant
+#d-i passwd/user-fullname string Vagrant
+#d-i passwd/username string vagrant
+## Normal user's password, either in clear text
+#d-i passwd/user-password password vagrant
+#d-i passwd/user-password-again password vagrant
 # or encrypted using an MD5 hash.
 #d-i passwd/user-password-crypted password [MD5 hash]
 # Create the first user with the specified UID instead of the default.
@@ -472,4 +473,3 @@ xserver-xorg xserver-xorg/autodetect_monitor boolean true
 # directly, or use the apt-install and in-target commands to easily install
 # packages and run commands in the target system.
 #d-i preseed/late_command string apt-install zsh; in-target chsh -s /bin/zsh
-
