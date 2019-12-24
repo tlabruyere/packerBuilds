@@ -41,7 +41,9 @@
       "vboxmanage": [
         [ "modifyvm", "{{.Name}}", "--memory", "{{user `mem_size`}}" ],
         [ "modifyvm", "{{.Name}}", "--cpus", "{{user `num_cpus`}}" ],
-        [ "modifyvm", "{{.Name}}", "--rtcuseutc", "on" ]
+        [ "modifyvm", "{{.Name}}", "--rtcuseutc", "on" ],
+        [ "modifyvm", "{{.Name}}", "--natpf1", "guest_ssh,tcp,,3022,,22" ]
+
       ],
       "http_directory": "./http",
       "headless": "{{user `headless`}}",
@@ -72,11 +74,11 @@
   "provisioners": [
     {
       "type": "shell",
+      "execute_command": "echo {{user `ssh_pass`}} | {{.Vars}} sudo -E -S sh -ex '{{.Path}}'",
+      "environment_vars": ["NEW_USER={{user `ssh_user`}}"],
       "scripts": [
         "provisioners/install.sh"
-      ],
-      "execute_command": "echo {{user `ssh_pass`}} | {{.Vars}} sudo -E -S sh -ex '{{.Path}}'"
-
+      ]
     }
   ]
 }
